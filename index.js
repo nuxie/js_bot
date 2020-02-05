@@ -17,3 +17,21 @@ bot.on("start", () => {
 });
 
 bot.on("error", err => console.log(err));
+
+bot.on("message", data => {
+  if (data.type !== "message" || data.user == undefined) {
+    return;
+  }
+  handleMessage(data.text);
+});
+
+function handleMessage(message) {
+  const params = {
+    icon_emoji: ":smile:"
+  };
+  bot.postMessageToChannel(
+    "bot",
+    "Thanks for talking to me.",
+    params
+  );
+}
