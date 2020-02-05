@@ -1,4 +1,5 @@
 const SlackBot = require("slackbots");
+const request = require("request");
 
 const bot = new SlackBot({
   token: "xoxb-933239002181-933697847524-Se0XsxOknVwERJpivNWEYezD",
@@ -13,7 +14,7 @@ bot.on("start", () => {
     "bot",
     "Tzzzzzt... What a wonderful day to be alive!",
     params
-  );
+    );
 });
 
 bot.on("error", err => console.log(err));
@@ -26,12 +27,20 @@ bot.on("message", data => {
 });
 
 function handleMessage(message) {
-  const params = {
-    icon_emoji: ":smile:"
-  };
-  bot.postMessageToChannel(
-    "bot",
-    "Thanks for talking to me.",
-    params
-  );
+  if (/joke/i.test(message)) {
+    getJoke();
+  }
+}
+
+function getJoke() {
+  request("https://icanhazdadjoke.com/", { json: true }, (err, res, body) => {
+    if (err) {
+      return console.log(err);
+    }
+    const joke = body.joke;
+    const params = {
+      icon_emoji: ":sunglasses:"
+    };
+    bot.postMessageToChannel("bot", `${joke}`, params);
+  });
 }
