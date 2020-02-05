@@ -16,3 +16,4 @@ bot.on("start", () => {
   );
 });
 
+bot.on("error", err => console.log(err));
