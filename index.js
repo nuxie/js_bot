@@ -3,7 +3,7 @@ const request = require("request");
 const natural = require("natural");
 
 const bot = new SlackBot({
-  token: "xoxb-933239002181-933697847524-Se0XsxOknVwERJpivNWEYezD",
+  token: "xoxb-933239002181-933697847524-8OCFzs6d9hlySUkfBbrDBkei",
   name: "626f74"
 });
 
@@ -48,6 +48,7 @@ function getJoke() {
     };
     bot.postMessageToChannel("bot", `${joke}`, params);
   });
+}
 
   function getGIF(searched) {
     request(
